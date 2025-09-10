@@ -57,7 +57,11 @@
   // 補足語 Supplement
   supplement-image: [図],
   supplement-table: [表],
+<<<<<<< HEAD
   supplement-equation-ref: [式],
+=======
+  supplement-equation: [式],
+>>>>>>> 5d5a3c1 (Add supplement-equation support and update numbering link format)
   supplement-separator: [: ],
   // 番号付け Numbering
   numbering-headings: "1.1.  ",
@@ -101,7 +105,11 @@
     let el = it.element
     if el != none and el.func() == eq {
       let num = numbering(el.numbering, ..counter(eq).at(el.location()))
+<<<<<<< HEAD
       link(el.location(), [#supplement-equation-ref #num])
+=======
+      link(el.location(), [#supplement-equation #num])
+>>>>>>> 5d5a3c1 (Add supplement-equation support and update numbering link format)
     }
     // Sections -> n章m節l項.
     // Appendix -> 付録A.
