@@ -46,6 +46,7 @@
   // 補足語 Supplement
   supplement-image: [図],
   supplement-table: [表],
+  supplement-ref-equation: [式],
   supplement-separator: [: ],
   // 番号付け Numbering
   numbering-headings: "1.1",
@@ -275,7 +276,7 @@ LaTeX に慣れている方は、Typst 公式ページの https://typst.app/docs
 ここで `<eq:system>` は引用するときのラベルになります。
 
 出力例はつぎの通りです。
-以下のシステムを考える。
+@eq:system のシステムを考える。
 $ dot(x) &= A x + B u \
  y &= C x $ <eq:system>
 ここで $x in RR^n$ は状態、$u in RR^m$ は入力、$y in RR^l$ は出力、$A in RR^(n times n)$、$B in RR^(n times m)$。および $C in RR^(l times n)$ は定数行列である。
