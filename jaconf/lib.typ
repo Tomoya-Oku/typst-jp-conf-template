@@ -13,7 +13,7 @@
 
 #let sup_ast(num) = super(typographic: true, baseline: -0.3em, size: 0.7em)[\*] + super(typographic: true, baseline: -0.5em, size: 0.6em)[#num]
 
-#let robosym(
+#let jaconf(
   // 基本 Basic
   title: [タイトル],
   title-en: [Title in English],
