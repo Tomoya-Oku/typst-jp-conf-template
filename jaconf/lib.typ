@@ -19,7 +19,7 @@
   title-en: [Title in English],
   authors: [著者1#sup_ast(1), 著者2#sup_ast(1)],
   authors-en: [Author1#sup_ast(1), Author2#sup_ast(1)],
-  affiliation: ([Typst University], [LaTeX University]),  // 複数の場合はカンマで区切る
+  affiliation: ([Typst University], [LaTeX University]),
   abstract: none,
   keywords: (),
   // フォント名 Font family
@@ -33,12 +33,12 @@
   page-number: none,  // e.g. "1/1"
   column-gutter: 4%+0pt,
   spacing-heading: 1.2em,
-  front-matter-order: ("title", "authors", "title-en", "authors-en", "abstract", "keywords"),  // 独自コンテンツの追加も可能
+  front-matter-order: ("title", "authors", "title-en", "authors-en", "affiliation", "abstract", "keywords"),  // 独自コンテンツの追加も可能
   front-matter-spacing: 1.5em,
   front-matter-margin: 2.0em,
   abstract-language: "en",  // "ja" or "en"
   keywords-language: "en",  // "ja" or "en"
-  bibliography-style: "sice.csl",  // "sice.csl", "rsj.csl", "ieee", etc.
+  bibliography-style: "robotics-symposia.csl",  // "sice.csl", "rsj.csl", "ieee", etc.
   // 見出し Headings
   heading-abstract: [*Abstract--*],
   heading-keywords: [_*Keywords*_: ],
@@ -60,7 +60,7 @@
   supplement-equation-ref: [式],
   supplement-separator: [: ],
   // 番号付け Numbering
-  numbering-headings: "1.1",
+  numbering-headings: "1.1.  ",
   numbering-equation: "(1)",
   numbering-appendix: "A.1",  // #show: appendix.with(numbering-appendix: "A.1") の呼び出しにも同じ引数を与えてください。
   // 本文
@@ -150,7 +150,7 @@
     subsection_counter.update(1)
   }
   show heading.where(level: 2): it => {
-    section() + "・"  + subsection() +  "　" + it.body + "　" + [ ]
+    section() + "・"  + subsection() +  "    " + it.body + "    " + [ ]
     subsection_counter.step()
   }
 
