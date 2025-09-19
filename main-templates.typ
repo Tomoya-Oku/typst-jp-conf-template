@@ -2,10 +2,11 @@
 // Copyright 2024, 2025 Shunsuke Kimura
 
 // Select the Template
-// #import "libs/mscs/lib.typ": mscs as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
-#import "libs/rengo/lib.typ": rengo as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
+#import "libs/mscs/lib.typ": mscs as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
+// #import "libs/rengo/lib.typ": rengo as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
 // #import "libs/rsj-conf/lib.typ": rsj-conf as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
 // #import "libs/sci/lib.typ": sci as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
+// #import "libs/sice-si/lib.typ": sice-si as temp, definition, lemma, theorem, corollary, proof, appendix, conference-name
 
 // デフォルト値でよい引数は省略可能
 #show: temp.with(
