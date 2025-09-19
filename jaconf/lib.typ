@@ -17,16 +17,16 @@
   // 基本 Basic
   title: [タイトル],
   title-en: [Title in English],
-  authors: [],
-  authors-en: [],
-  affiliation: (),
+  authors: [著者1#sup_ast(1), 著者2#sup_ast(1)],
+  authors-en: [Author1#sup_ast(1), Author2#sup_ast(1)],
+  affiliation: ([Typst University], [LaTeX University]),  // 複数の場合はカンマで区切る
   abstract: none,
   keywords: (),
   // フォント名 Font family
-  font-heading: (),  // サンセリフ体、ゴシック体などの指定を推奨
-  font-main: (),  // セリフ体、明朝体などの指定を推奨
-  font-latin: (),
-  font-math: "New Computer Modern Math",
+  font-heading: ("Yu Gothic", "YuGothic", "MS Gothic"),  // サンセリフ体、ゴシック体などの指定を推奨
+  font-main: ("Times New Roman", "Yu Mincho", "YuMincho", "MS Mincho"),  // セリフ体、明朝体などの指定を推奨
+  font-latin: ("Times New Roman"),  // 欧文フォント
+  font-math: ("New Computer Modern Math"),
   // 外観 Appearance
   paper-margin: (top: 25mm, bottom: 25mm, left: 23mm, right: 23mm),
   paper-columns: 2,  // 1: single column, 2: double column
