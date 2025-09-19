@@ -1,7 +1,7 @@
 // MIT No Attribution
 // Copyright 2024, 2025 Shunsuke Kimura
 
-#import "jaconf/lib.typ": robosym as temp, definition, lemma, theorem, corollary, proof, appendix, sup_ast
+#import "jaconf/lib.typ": jaconf as temp, definition, lemma, theorem, corollary, proof, appendix, sup_ast
 #let conference-name = "制御部門マルチシンポジウム"
 
 // デフォルト値でよい引数は省略可能
