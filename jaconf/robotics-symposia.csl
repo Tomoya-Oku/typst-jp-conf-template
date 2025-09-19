@@ -2,23 +2,29 @@
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" default-locale="ja-JP">
   <!-- This style was edited with the Visual CSL Editor (https://editor.citationstyles.org/visualEditor/) -->
   <info>
-    <title>Robotic Symposia</title>
+    <title>Robotics Symposia</title>
     <title-short>RS</title-short>
     <id>https://github.com/Tomoya-Oku/typst-jp-conf-template/blob/main/jaconf/rs.csl</id>
-    <link href="https://www.sice.or.jp/wp-content/uploads/file/trans/tebiki.pdf" rel="documentation"/>
+    <link href="https://www.robotics-symposia.org/31st/manuscript.html" rel="documentation"/>
     <author>
       <name>Tomoya Oku</name>
       <email>oku@dragon.t.u-tokyo.ac.jp</email>
       <uri>https://github.com/Tomoya-Oku</uri>
     </author>
     <category citation-format="numeric"/>
-    <summary>Robotic Symposiaの参考文献引用フォーマット</summary>
+    <summary>Robotics Symposiaの参考文献引用フォーマット</summary>
     <updated>2025-03-30T14:26:30+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en"> <!-- なぜかenしか効かない -->
     <terms>
+      <term name="and">and</term>
       <term name="page-range-delimiter">/</term>
+    </terms>
+  </locale>
+  <locale xml:lang="ja">
+    <terms>
+      <term name="and">and</term>
     </terms>
   </locale>
   <macro name="edition">
