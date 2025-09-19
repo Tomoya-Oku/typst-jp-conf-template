@@ -23,9 +23,9 @@
   abstract: none,
   keywords: (),
   // フォント名 Font family
-  font-heading: "Noto Sans CJK JP",  // サンセリフ体、ゴシック体などの指定を推奨
-  font-main: "Noto Serif CJK JP",  // セリフ体、明朝体などの指定を推奨
-  font-latin: "New Computer Modern",
+  font-heading: (),  // サンセリフ体、ゴシック体などの指定を推奨
+  font-main: (),  // セリフ体、明朝体などの指定を推奨
+  font-latin: (),
   font-math: "New Computer Modern Math",
   // 外観 Appearance
   paper-margin: (top: 25mm, bottom: 25mm, left: 23mm, right: 23mm),
@@ -129,22 +129,30 @@
   set enum(indent: 1em)
   set list(indent: 1em)
 
+  let section_counter = counter("section")
   let subsection_counter = counter("subsection")
-  subsection_counter.update(1)
+
+  let section = () => context {
+    section_counter.display("1")
+  }
 
   let subsection = () => context {
-    // カウンターを更新する(+1する)
-    subsection_counter.update(n => n + 1)
     subsection_counter.display("1")
   }
 
   // Configure headings.
   set heading(numbering: numbering-headings)
   show heading: set block(spacing: spacing-heading)
-  show heading: set text(size: font-size-main, font: font-heading, weight: "bold")
-  show heading.where(level: 1): set text(size: font-size-heading)
-  show heading.where(level: 1): it => align(center, it)
-  show heading.where(level: 2): it => str(it.level) + "・"  + subsection() +  "　" + it.body + "　" + [ ]
+  show heading: set text(size: font-size-heading, font: font-heading, weight: "bold")
+  show heading.where(level: 1): it => {
+    align(center, it)
+    section_counter.step()
+    subsection_counter.update(1)
+  }
+  show heading.where(level: 2): it => {
+    section() + "・"  + subsection() +  "　" + it.body + "　" + [ ]
+    subsection_counter.step()
+  }
 
   // Configure figures.
   show figure.where(kind: table): set figure(placement: top, supplement: supplement-table)
