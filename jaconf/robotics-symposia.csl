@@ -16,11 +16,16 @@
     <updated>2025-03-30T14:26:30+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
-  <locale xml:lang="en"> <!-- なぜかenしか効かない -->
-    <terms>
-      <term name="and">and</term>
-      <term name="page-range-delimiter">/</term>
-    </terms>
+  <locale xml:lang="en">
+  <terms>
+    <term name="and">and</term>
+    <term name="page-range-delimiter">/</term>
+    <!-- ここを追加：半角ダブルクォートに固定 -->
+    <term name="open-quote">"</term>
+    <term name="close-quote">"</term>
+    <term name="open-inner-quote">"</term>
+    <term name="close-inner-quote">"</term>
+  </terms>
   </locale>
   <locale xml:lang="ja">
     <terms>
@@ -48,6 +53,35 @@
     <date variable="issued" prefix="(" suffix=")">
       <date-part name="year" form="long"/>
     </date>
+  </macro>
+  <macro name="issued-any">
+    <choose>
+      <if variable="issued">
+        <date variable="issued" prefix="(" suffix=")">
+          <date-part name="year" form="long"/>
+        </date>
+      </if>
+      <else-if variable="original-date">
+        <date variable="original-date" prefix="(" suffix=")">
+          <date-part name="year" form="long"/>
+        </date>
+      </else-if>
+      <else-if variable="submitted">
+        <date variable="submitted" prefix="(" suffix=")">
+          <date-part name="year" form="long"/>
+        </date>
+      </else-if>
+      <else-if variable="event-date">
+        <date variable="event-date" prefix="(" suffix=")">
+          <date-part name="year" form="long"/>
+        </date>
+      </else-if>
+      <else-if variable="available-date">
+        <date variable="available-date" prefix="(" suffix=")">
+          <date-part name="year" form="long"/>
+        </date>
+      </else-if>
+    </choose>
   </macro>
   <macro name="author">
     <choose>
@@ -78,27 +112,32 @@
     </names>
   </macro>
   <macro name="locators">
-    <group delimiter="-">
-      <text macro="edition"/>
-      <group>
-        <number variable="volume" form="numeric" font-weight="bold"/>
-      </group>
-      <group delimiter=" ">
-        <number variable="issue" form="numeric"/>
-      </group>
-    </group>
-  </macro>
-  <macro name="title">
+  <group delimiter=", ">
+    <text macro="edition"/>
     <choose>
-      <if type="bill book graphic legal_case legislation motion_picture song" match="any">
-        <text variable="title"/>
+      <if variable="volume issue" match="any">
+        <group delimiter=", ">
+          <group>
+            <text value="Vol."/>
+            <text variable="volume"/>
+          </group>
+          <choose>
+            <if variable="issue">
+              <group>
+                <text value="No."/>
+                <text variable="issue"/>
+              </group>
+            </if>
+          </choose>
+        </group>
       </if>
-      <else>
-        <text variable="title"/>
-        <!-- <text variable="title" quotes="true"/> -->
-      </else>
     </choose>
-  </macro>
+  </group>
+</macro>
+<macro name="title">
+  <!-- タイプを問わずダブルクォートで囲む（開きは `` 、閉じは "） -->
+  <text variable="title" prefix="``" suffix="&quot;"/>
+</macro>
   <macro name="publisher">
     <group delimiter=", ">
       <text variable="publisher"/>
@@ -138,7 +177,22 @@
     </choose>
   </macro>
   <macro name="page">
-    <text variable="page"/>
+    <text variable="page" prefix="pp."/>
+  </macro>
+  <!-- 追加：arXiv 表記 -->
+  <macro name="arxiv">
+    <choose>
+      <!-- BibTeX @misc → archive=arXiv, archive_location=2404.09153 が入る想定 -->
+      <if variable="archive archive_location" match="all">
+        <group delimiter=", ">
+          <text variable="archive" font-style="italic"/>  <!-- arXiv を斜体 -->
+          <group>
+            <text value="arXiv:"/>
+            <text variable="archive_location"/>
+          </group>
+        </group>
+      </if>
+    </choose>
   </macro>
   <citation collapse="citation-number">
     <sort>
@@ -156,33 +210,63 @@
         <if type="article-journal">
           <group delimiter=", ">
             <text macro="title"/>
-            <text variable="container-title" font-style="italic" form="short"/>
+            <text variable="container-title" font-style="italic"/>
             <text macro="locators"/>
-            <text macro="page"/>
           </group>
-          <text macro="issued" prefix=" "/>
+          <text macro="issued-any" prefix=", "/>
+          <text macro="page" prefix=", "/>
         </if>
         <else-if type="paper-conference">
           <group delimiter=", ">
             <text macro="title"/>
-            <text macro="event"/>
-            <text macro="locators"/>
-            <text macro="page"/>
+            <!-- container-title があればそれを、無ければ event + event-place -->
+            <choose>
+              <if variable="container-title">
+                <text variable="container-title" font-style="italic"/>
+              </if>
+              <else>
+                <group delimiter=", ">
+                  <text variable="event"/>
+                  <text variable="event-place"/>
+                </group>
+              </else>
+            </choose>
+            <!-- 体裁例では年が先、ページが後 -->
           </group>
-          <text macro="issued" prefix=" "/>
+          <text macro="issued-any" prefix=", "/>
+          <text macro="page" prefix=", "/>
         </else-if>
         <else-if type="book" match="any">
-          <group delimiter=", " suffix=". ">
+          <group delimiter=", ">
             <text macro="title"/>
-            <text macro="locators"/>
+            <text macro="publisher"/>
           </group>
-          <text macro="publisher"/>
-          <text macro="issued" prefix=" "/>
+          <text macro="issued-any" prefix=", "/>
+          <text macro="page" prefix=", "/>
+        </else-if>
+        <else-if type="manuscript report" match="any">
+          <group delimiter=", ">
+            <text macro="title"/>
+            <choose>
+              <!-- arXiv のとき -->
+              <if variable="archive archive_location" match="all">
+                <text macro="arxiv"/>
+              </if>
+              <!-- arXiv でない @misc は出版社など -->
+              <else>
+                <text macro="publisher"/>
+              </else>
+            </choose>
+          </group>
+          <text macro="issued-any" prefix=", "/>
+          <!-- URL も示したい場合（任意） -->
+          <text variable="URL" prefix=", URL: "/>
         </else-if>
         <else-if type="webpage">
           <group delimiter=", " suffix=". ">
             <text macro="title"/>
             <text macro="publisher"/>
+            <text macro="issued-any"/>
             <text macro="access"/>
           </group>
         </else-if>
@@ -191,7 +275,7 @@
           <text variable="number"/>
           <text macro="issued"/>
         </else-if>
-        <else-if type="article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis webpage" match="any">
+        <else-if type="article-magazine article-newspaper broadcast interview map patent personal_communication song speech thesis webpage" match="any">
           <group delimiter=", ">
             <text macro="title"/>
             <text variable="container-title" font-style="italic"/>

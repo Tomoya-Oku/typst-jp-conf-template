@@ -150,7 +150,7 @@
     subsection_counter.update(1)
   }
   show heading.where(level: 2): it => {
-    section() + "・"  + subsection() +  "    " + it.body + "    " + [ ]
+    section() + "・"  + subsection() +  h(1em) + it.body + h(2em) + [ ]
     subsection_counter.step()
   }
 
@@ -183,7 +183,7 @@
       align(center)[
         #set text(font: font-main, size: font-size-affiliation)
         #for (i, a) in affiliation.enumerate() [
-          #sup_ast(i + 1)#a
+          @footnote #a
           #if i < affiliation.len() - 1 [
             \
           ]
