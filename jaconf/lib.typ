@@ -1,7 +1,7 @@
 // import third-party packages
 #import "@preview/codly:1.3.0": codly-init
 #import "@preview/ctheorems:1.1.3": thmplain, thmproof, thmrules
-#import "@preview/cjk-unbreak:0.1.1": remove-cjk-break-space
+#import "@preview/cjk-unbreak:0.2.0": remove-cjk-break-space
 
 // Theorem environments
 #let thmja = thmplain.with(base: {}, separator: [#h(0.5em)], titlefmt: strong, inset: (top: 0em, left: 0em))
@@ -53,8 +53,8 @@
   // 補足語 Supplement
   supplement-image: [図],
   supplement-table: [表],
-  supplement-ref-equation: [],  // 式、Eq. など
   supplement-separator: [: ],
+  supplement-equation: [],  // 式、Eq. など
   // 番号付け Numbering
   numbering-headings: "1.1",
   numbering-equation: "(1)",
@@ -97,7 +97,7 @@
     let el = it.element
     if el != none and el.func() == eq {
       let num = numbering(el.numbering, ..counter(eq).at(el.location()))
-      link(el.location(), [#supplement-ref-equation #num])
+      link(el.location(), [#supplement-equation #num])
     }
     // Sections -> n章m節l項.
     // Appendix -> 付録A.

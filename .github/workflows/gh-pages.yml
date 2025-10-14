@@ -5,12 +5,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}typst-jp-conf.pdf
+      url: ${{ steps.deployment.outputs.page_url }}jaconf-example.pdf
     permissions:
       pages: write
       id-token: write
@@ -25,7 +28,7 @@ jobs:
       - name: Compile
         run: |
           mkdir ./out
-          typst compile ./main.typ ./out/typst-jp-conf.pdf
+          typst compile ./main.typ ./out/jaconf-example.pdf
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
